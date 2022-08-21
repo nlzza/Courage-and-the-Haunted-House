@@ -13,10 +13,13 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float PlayerSpeed;
 
+    [SerializeField] Rigidbody PlayerRigidbody;
+
     // Start is called before the first frame update
     void Start()
     {
         playerAnimator = PlayerCharacter.gameObject.GetComponent<Animator>();
+        PlayerRigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -27,8 +30,11 @@ public class PlayerController : MonoBehaviour
         float xMov = Joystick.Horizontal;
         float zMov = Joystick.Vertical;
 
-        transform.Translate( xMov * Time.deltaTime * PlayerSpeed , 0 , zMov * Time.deltaTime * PlayerSpeed );
+       // transform.Translate( xMov * Time.deltaTime * PlayerSpeed , 0 , zMov * Time.deltaTime * PlayerSpeed );
 
+        var vectorsample = new Vector3(xMov * Time.deltaTime * PlayerSpeed, 0, zMov * Time.deltaTime * PlayerSpeed) * 100;
+
+        PlayerRigidbody.velocity = vectorsample;
 
         //Player rotation control system
        
