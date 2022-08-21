@@ -64,12 +64,6 @@ public class EnemyController : MonoBehaviour
         EnemyAgent.SetDestination(Player.transform.position);
 
         transform.rotation = Quaternion.LookRotation(Player.transform.position - transform.position);
-
-
-        if (DistanceFromPlayer <= EnemyAgent.stoppingDistance)
-        {
-
-        }
     }
     private void UpdateLayerMask(string layerName) 
     {
