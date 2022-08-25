@@ -144,6 +144,7 @@ MonoBehaviour:
   Joystick: {fileID: 0}
   PlayerCharacter: {fileID: 5155601756283636427}
   PlayerSpeed: 20
+  PlayerRigidbody: {fileID: 0}
 --- !u!54 &4613613488989433705
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -301,6 +302,25 @@ Transform:
   m_Father: {fileID: 1903523672176406834}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &4613613488865378562
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532585108136710257}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 2d0b8801746ad9f4793359406bb6990e, type: 3}
+  m_Controller: {fileID: 9100000, guid: 7cba5c8cac5c3354e9af0ad83e93fca3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &4613613488753339680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -437,22 +457,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6515712193588681746, guid: 03263a8b689273b47a83d4faa7ed363e, type: 3}
   m_PrefabInstance: {fileID: 4613613488753339680}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &4613613488865378562
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5532585108136710257}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 2d0b8801746ad9f4793359406bb6990e, type: 3}
-  m_Controller: {fileID: 9100000, guid: 7cba5c8cac5c3354e9af0ad83e93fca3, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
