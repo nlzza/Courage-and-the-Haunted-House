@@ -9,7 +9,7 @@ public class TrapController : MonoBehaviour
     [SerializeField] int AnimationLoopLength;
     [SerializeField] float SpikesDisplacement;
     [SerializeField] bool isAnimating;
-
+    [SerializeField] AudioSource TrapSound;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +43,7 @@ public class TrapController : MonoBehaviour
     {
         if (isAnimating)
         {
+            TrapSound.Play();
             for (int i = 0; i < AnimationLoopLength; i++)
             {
                 Spikes.Translate(0, 0, SpikesDisplacement);

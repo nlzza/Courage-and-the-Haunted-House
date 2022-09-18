@@ -6,6 +6,13 @@ TagManager:
   tags:
   - Enemy
   - Trap
+  - Weapon
+  - BGM
+  - Roof
+  - Heart Bonus
+  - Health Bonus
+  - Speed Bonus
+  - Laser
   layers:
   - Default
   - TransparentFX

@@ -123,7 +123,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2527345987194529099}
-  m_LocalRotation: {x: -0, y: -0.9999892, z: -0, w: -0.0046526333}
+  m_LocalRotation: {x: -0, y: -0.9999892, z: 0, w: -0.00465136}
   m_LocalPosition: {x: -0.009952545, y: -3.2853656, z: 1.5908546}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -145,19 +145,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyCharacter: {fileID: 2527345987279742310}
   MinimumDistanceLimit: 10
-  AlarmDistance: 20
+  AlarmDistance: 15
   AttackDistance: 6
-  SpawnParticles: {fileID: 198665507610156730, guid: 2fb89fd7d45976f4c9e6d6de3ccd635b, type: 3}
-  DeathParticles:
-  - {fileID: 198505150952397844, guid: 9e99fe56695bae341b7975743f76cf4d, type: 3}
-  - {fileID: 198279028075486306, guid: 4a7dafb38772a6641a747a1184918cb6, type: 3}
-  - {fileID: 198475560534896312, guid: 433f04b7cbaf5cc4d8d1a7ca82fa93c6, type: 3}
-  - {fileID: 198112793686261236, guid: 889447eb699011546931af7afa708c6b, type: 3}
-  - {fileID: 198791514311090032, guid: 0c1c29a29b0f0c34dab1b42c3815124a, type: 3}
-  - {fileID: 198325895038918106, guid: f57fc431ac0516d429929722ed9ac58c, type: 3}
-  - {fileID: 198049818700294864, guid: 92597972144f0614bb3b596a3820514b, type: 3}
+  GiftBox: {fileID: 0}
+  SpawnParticles: {fileID: 1475064962942672, guid: 2fb89fd7d45976f4c9e6d6de3ccd635b, type: 3}
+  DeathParticles: {fileID: 1456060657882760, guid: f57fc431ac0516d429929722ed9ac58c, type: 3}
   Weapon: {fileID: 2527345986329771371}
   AttackSound: {fileID: 8300000, guid: 4ab911256423bf44ba2b2062918d23f8, type: 3}
+  DieSound: {fileID: 8300000, guid: 4ab911256423bf44ba2b2062918d23f8, type: 3}
+  SpawnSound: {fileID: 8300000, guid: 820c49ea8e11b6d47bafaef5ec33d3ed, type: 3}
+  ShooterEnemy: 0
+  ShootSpot: {fileID: 0}
+  FireBall: {fileID: 0}
+  ShootDistance: 0
 --- !u!136 &2527345987194529143
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -200,7 +200,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9aad7d94b7e9a674b91ece508a457574, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.397
+  m_Volume: 0.26
   m_Pitch: 1
   Loop: 0
   Mute: 0

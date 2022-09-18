@@ -3,15 +3,26 @@ using UnityEngine.AI;
 
 public class EnemyController: MonoBehaviour
 {
+
+    [Header("Normal Enemy Settings")]
     [SerializeField] Transform EnemyCharacter;
     [SerializeField] float MinimumDistanceLimit;
     [SerializeField] float AlarmDistance;
     [SerializeField] float AttackDistance;
-    [SerializeField] ParticleSystem SpawnParticles;
-    [SerializeField] ParticleSystem[] DeathParticles;
+    [SerializeField] GameObject GiftBox;
+    [SerializeField] GameObject SpawnParticles;
+    [SerializeField] GameObject DeathParticles;
     [SerializeField] GameObject Weapon;
     [SerializeField] AudioClip AttackSound;
+    [SerializeField] AudioClip DieSound;
+    [SerializeField] AudioClip SpawnSound;
 
+    [Header("Shooter Enemy Settings")]
+    [SerializeField] bool ShooterEnemy;
+    [SerializeField] Transform ShootSpot;
+    [SerializeField] GameObject FireBall;
+    [SerializeField] float ShootDistance;
+    bool shootCheck;
 
     [Header("Runtime Game Hierarchy References")]
 
@@ -73,14 +84,25 @@ public class EnemyController: MonoBehaviour
         if (DistanceFromPlayer < MinimumDistanceLimit)
         {
             isDetected = true;
+
+            alarm.PlayOneShot(SpawnSound);
             UpdateLayerMask("Default");
-            Instantiate(SpawnParticles,transform.position,Quaternion.identity);
+            Destroy(GiftBox);
+
+            if (gameManager.LevelNumber == 1)
+            {
+                Invoke("TutorialBreak", 1);
+            }
+
+
+            GameObject spawnps = Instantiate(SpawnParticles,transform.position,Quaternion.identity);
+            Destroy(spawnps,1f);
             Player.GetComponent<PlayerController>().PlayScreamSound() ;
             scream.Play();
             EnemyAnimator.SetTrigger("isAttack");
-            print("Here");
+
             Player.GetComponent<PlayerController>().UpdateTarget("");
-            //EnemyAnimator.SetBool(isRunninghash, true);
+            
         }
     }
 
@@ -95,27 +117,53 @@ public class EnemyController: MonoBehaviour
             transform.rotation = Quaternion.LookRotation(Player.transform.position - transform.position);
 
             Weapon.GetComponent<BoxCollider>().enabled = false;
+
+            if (!isDead && (DistanceFromPlayer <= ShootDistance) && ShooterEnemy && !shootCheck)
+            {
+                ShootFireBall();
+            }
         }
         else if (!isDead && (DistanceFromPlayer <= AttackDistance)) 
         {
             Attack();
         }
         
+
     }
 
     void Attack() 
     {
-        EnemyAgent.speed = 0;
-        EnemyAnimator.SetTrigger("isAttack");
-        Weapon.GetComponent<BoxCollider>().enabled = true;
-        
-        if (playAttackAudio == false)
+        if (!Player.GetComponent<PlayerController>().isDead)
         {
-            alarm.PlayOneShot(AttackSound);
-            playAttackAudio = true;
-            Invoke("AttackFinish",0.5f);
+          
+            EnemyAgent.speed = 0;
+            EnemyAnimator.SetTrigger("isAttack");
+            Weapon.GetComponent<BoxCollider>().enabled = true;
+
+            if (playAttackAudio == false)
+            {
+                alarm.PlayOneShot(AttackSound);
+                playAttackAudio = true;
+                Invoke("AttackFinish", 0.5f);
+            }
+        }
+        else 
+        {
+            EnemyAnimator.Play("Idle");
         }
 
+    }
+
+    void ShootFireBall() 
+    {
+        shootCheck = true;
+        Invoke("ShootCheckReverse", 1);
+        Instantiate(FireBall, ShootSpot.position, ShootSpot.rotation);
+    }
+
+    public void ShootCheckReverse() 
+    {
+        shootCheck = false;
     }
 
     void AttackFinish() 
@@ -136,13 +184,14 @@ public class EnemyController: MonoBehaviour
 
     public void Die() 
     {
+
         gameManager.UpdateEnemyStatus();
         Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Trap"))
+        if (other.CompareTag("Trap") || other.CompareTag("Laser"))
         {
             isDead = true;
             EnemyAnimator.SetBool(isDeadhash, true);
@@ -153,25 +202,31 @@ public class EnemyController: MonoBehaviour
                 PlayerTargetUpdated = true;
             }
 
-            Destroy(other.transform.parent.gameObject,1f);
-
-
-            int num = Random.Range(0,DeathParticles.Length);
-            for (int i = 0; i < DeathParticles.Length; i++)
+            if (other.CompareTag("Trap"))
             {
-                if (i == num)
-                {
-                    Instantiate(DeathParticles[i],transform.position,Quaternion.identity);
-                }
+                Destroy(other.transform.parent.gameObject, 1f);
             }
+
+
+            Quaternion rot = Quaternion.Euler(-90,180,0);
+
+            GameObject deathps = Instantiate(DeathParticles,transform.position + new Vector3(0,5,0), rot);
+            Destroy(deathps,2f);
 
             // to stop the ghost movement once it dies
             GetComponent<NavMeshAgent>().enabled = false;
             GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             // disable the collider so that Courage does not kick around the dead ghost
             GetComponent<CapsuleCollider>().enabled = false;
-
+            alarm.PlayOneShot(DieSound);
             Invoke("Die",3f);
         }
+       
+    }
+
+    public void TutorialBreak() 
+    {
+        Time.timeScale = 0.05f;
+        gameManager.TutorialDisplay();
     }
 }
